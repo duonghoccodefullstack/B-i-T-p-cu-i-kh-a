@@ -1,23 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <style>
-      input {
-        width: 400px;
-        height: 50px;
-        margin-bottom: 10px;
-        padding-left: 10px;
-      }
-    </style>
+    <title>Tổng các số nguyên tố trong khoảng a và b</title>
   </head>
-
   <body>
-    <div id="container">
+   
       <h1>Tổng các số nguyên tố trong khoảng a và b</h1>
-      <label for="inputA">Nhập số a (a &lt; b):</label>
+      <label for="inputA">Nhập số a (a nhỏ b):</label>
       <input type="number" id="inputA" />
       <br />
       <label for="inputB">Nhập số b:</label>
@@ -25,19 +14,16 @@
       <br />
       <button onclick="calculatePrimeSum()">Tính tổng</button>
       <p id="result"></p>
-    </div>
+      <p id="result1"></p>
+
 
     <script>
       function isPrime(n) {
-        if (n <= 1) {
-          return false;
-        }
-        if (n <= 3) {
-          return true;
-        }
-
-        for (var i = 2; i <= Math.sqrt(n); i++) {
-          if (n % i === 0) {
+        if (n <= 1) return false;
+        if (n <= 3) return true;
+        if (n % 2 === 0 || n % 3 === 0) return false;
+        for (let i = 5; i * i <= n; i += 6) {
+          if (n % i === 0 || n % (i + 2) === 0) {
             return false;
           }
         }
@@ -45,28 +31,25 @@
       }
 
       function calculatePrimeSum() {
-        var a = parseInt(document.getElementById("inputA").value);
-        var b = parseInt(document.getElementById("inputB").value);
-        var sum = 0;
-
+        let a = parseInt(document.getElementById("inputA").value);
+        let  b = parseInt(document.getElementById("inputB").value);
+        let  sum = 0;
+        let kq = [];
         if (a >= b) {
           alert("Vui lòng nhập a < b.");
           return;
         }
 
-        for (var i = a; i <= b; i++) {
+        for (let i = a; i <= b; i++) {
           if (isPrime(i)) {
             sum += i;
+            kq.push(i);
           }
         }
-
+        document.getElementById("result1").textContent =
+          "Dãy số nguyên tố từ " + a + " đến " + b + "là:  " + kq;
         document.getElementById("result").textContent =
-          "Tổng các số nguyên tố trong khoảng từ " +
-          a +
-          " đến " +
-          b +
-          " là " +
-          sum;
+          "Tổng các số nguyên tố " + a + " đến " + b + " là :" + sum;
       }
     </script>
   </body>
